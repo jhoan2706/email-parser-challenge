@@ -17,6 +17,11 @@ class EmailParserController extends Controller
      */
     public function parseEmail(Request $request)
     {
+        // Validate the request to ensure 'email_path' is a valid .eml file
+        $request->validate([
+            'email_path' => 'required|file|mimes:eml'
+        ]);
+        
         // Get the path to the email file from the request
         $filePath = $request->input('email_path');
         
