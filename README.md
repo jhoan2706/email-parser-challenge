@@ -13,8 +13,8 @@ This project provides an API endpoint that extracts JSON data from an email file
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/email-json-extractor.git
-   cd email-json-extractor
+   git clone https://github.com/jhoan2706/email-parser-challenge.git
+   cd email-parser-challenge
    ```
 
 2. Install dependencies:
@@ -39,7 +39,7 @@ This project provides an API endpoint that extracts JSON data from an email file
 
    **Endpoint:**
    ```
-   POST /api/extract-json
+   POST /api/parse-email
    ```
 
    **Request Body:**
