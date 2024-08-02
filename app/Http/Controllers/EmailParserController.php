@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use PhpMimeMailParser\Parser;
+use eXorus\PhpMimeMailParser\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
@@ -17,14 +17,17 @@ class EmailParserController extends Controller
      */
     public function parseEmail(Request $request)
     {
-        // Validate the request to ensure 'email_path' is a valid .eml file
-        $request->validate([
-            'email_path' => 'required|file|mimes:eml'
-        ]);
-        
-        // Get the path to the email file from the request
-        $filePath = $request->input('email_path');
-        
+        // Get the uploaded file
+        $file = $request->file('email_path');
+
+        // Check if file is uploaded successfully
+        if (!$file) {
+            return response()->json(['error' => 'No file uploaded'], 400);
+        }
+
+        // Get the file path
+        $filePath = $file->getPathname();
+
         // Create a new parser instance and set the email file path
         $parser = new Parser();
         $parser->setPath($filePath);
@@ -54,7 +57,7 @@ class EmailParserController extends Controller
     {
         // Loop through each attachment to find JSON files
         foreach ($parser->getAttachments() as $attachment) {
-            if ($attachment->getMimeType() === 'application/json') {
+            if ($attachment->getContentType() === 'application/json') {
                 return $attachment->getContent(); // Return JSON content if found
             }
         }
@@ -92,11 +95,13 @@ class EmailParserController extends Controller
         @$dom->loadHTML($html); // Suppress warnings for malformed HTML
         $links = $dom->getElementsByTagName('a');
 
-        // Loop through all links to find one ending with .json
+        // Loop through all links to find one that is a Google Drive link
         foreach ($links as $link) {
             $url = $link->getAttribute('href');
-            if (preg_match('/\.json$/', $url)) {
-                return $this->fetchJsonFromUrl($url); // Fetch JSON from the link
+
+            // Check if the link is a Google Drive link
+            if (preg_match('/drive\.google\.com\/file\/d\/(.*)\/view/', $url)) {
+                return $this->fetchJsonFromUrl($url); // Fetch JSON from the Google Drive link
             }
         }
 
@@ -111,11 +116,23 @@ class EmailParserController extends Controller
      */
     private function fetchJsonFromUrl($url)
     {
-        $client = new Client();
-        $response = $client->get($url);
+        // Convert Google Drive view link to direct download link if needed
+        if (preg_match('/drive\.google\.com\/file\/d\/(.*)\/view/', $url, $matches)) {
+            $fileId = $matches[1];
+            $url = "https://drive.google.com/uc?id={$fileId}&export=download";
+        }
 
-        if ($response->getStatusCode() === 200) {
-            return $response->getBody()->getContents();
+        $client = new \GuzzleHttp\Client(['verify' => false]);
+
+        try {
+            $response = $client->get($url);
+
+            if ($response->getStatusCode() === 200) {
+                return $response->getBody()->getContents(); // Return the JSON content
+            }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            error_log('Failed to fetch JSON: ' . $e->getMessage());
+            return null;
         }
 
         return null;

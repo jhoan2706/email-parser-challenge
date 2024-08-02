@@ -1,0 +1,19 @@
+MIME-Version: 1.0
+Date: Thu, 1 Aug 2024 12:36:52 -0500
+Message-ID: <CAD3ApbnvmgsUVPSjEcWeKLEZNHBRxq4jXJPzLs2fKm_9+mueMg@mail.gmail.com>
+Subject: Simple email with json stored in drive
+From: Gonzalo Gutierrez <gonzalo2706@gmail.com>
+To: Gonzalo Gutierrez <gonzalo2706@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000215ae5061ea2a8c0"
+
+--000000000000215ae5061ea2a8c0
+Content-Type: text/plain; charset="UTF-8"
+
+https://drive.google.com/file/d/16-ZTu8xmi8A02Z1fLYETylq3AUOWhxuP/view?usp=drive_link
+
+--000000000000215ae5061ea2a8c0
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><a href="https://drive.google.com/file/d/16-ZTu8xmi8A02Z1fLYETylq3AUOWhxuP/view?usp=drive_link">https://drive.google.com/file/d/16-ZTu8xmi8A02Z1fLYETylq3AUOWhxuP/view?usp=drive_link</a><br></div>
+
+--000000000000215ae5061ea2a8c0--

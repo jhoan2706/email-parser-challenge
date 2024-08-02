@@ -1,0 +1,33 @@
+MIME-Version: 1.0
+Date: Thu, 1 Aug 2024 12:34:34 -0500
+Message-ID: <CAD3Apbnbh2719J86Pye=PWedbDv7b_reFoZ6uNdNH652avq35A@mail.gmail.com>
+Subject: Simple email with an attachment json
+From: Gonzalo Gutierrez <gonzalo2706@gmail.com>
+To: Gonzalo Gutierrez <gonzalo2706@gmail.com>
+Content-Type: multipart/mixed; boundary="000000000000e71df6061ea29f96"
+
+--000000000000e71df6061ea29f96
+Content-Type: multipart/alternative; boundary="000000000000e71df3061ea29f94"
+
+--000000000000e71df3061ea29f94
+Content-Type: text/plain; charset="UTF-8"
+
+Some Description...
+
+--000000000000e71df3061ea29f94
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">Some Description...</div>
+
+--000000000000e71df3061ea29f94--
+--000000000000e71df6061ea29f96
+Content-Type: application/json; name="sample.json"
+Content-Disposition: attachment; filename="sample.json"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_lzbk12cv0
+Content-ID: <f_lzbk12cv0>
+
+ew0KICAgICJuYW1lIjogIkpvaG4gRG9lIiwNCiAgICAiZW1haWwiOiAiam9obmRvZUBleGFtcGxl
+LmNvbSIsDQogICAgInBvc2l0aW9uIjogew0KICAgICAgICAidGl0bGUiOiAiU29mdHdhcmUgRW5n
+aW5lZXIiLA0KICAgICAgICAiZGVwYXJ0bWVudCI6ICJFbmdpbmVlcmluZyINCiAgICB9DQp9DQo=
+--000000000000e71df6061ea29f96--
